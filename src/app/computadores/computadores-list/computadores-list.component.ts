@@ -92,7 +92,9 @@ export class ComputadoresListComponent implements OnInit {
   
 
   readonly breadcrump: PoBreadcrumb = {
-    items:[{label: 'Computadores', link: '/computadores'}]
+    items:[
+      {label: 'Home', link:'/laboratorios'},
+      {label: 'Computadores', link: '/computadores'},]
   }
 
   constructor(private service: ComputadoresService) { }

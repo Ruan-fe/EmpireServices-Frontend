@@ -1,4 +1,3 @@
-import { MenuModule } from './menu/menu.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +7,7 @@ import { PoModule } from '@po-ui/ng-components';
 import { RouterModule } from '@angular/router';
 import { ComputadoresModule } from './computadores/computadores.module';
 import {ComputadoresService} from './computadores/computadores.service'
+import {LaboratoriosModule } from './laboratorios/laboratorios.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import {ComputadoresService} from './computadores/computadores.service'
     PoModule,
     RouterModule.forRoot([]),
     ComputadoresModule,
-    MenuModule
+    LaboratoriosModule
+
   ],
   providers: [ComputadoresService],
   bootstrap: [AppComponent]
