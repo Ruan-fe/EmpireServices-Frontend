@@ -1,3 +1,4 @@
+import { MenuModule } from './menu/menu.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -17,7 +18,8 @@ import {ComputadoresService} from './computadores/computadores.service'
     AppRoutingModule,
     PoModule,
     RouterModule.forRoot([]),
-    ComputadoresModule
+    ComputadoresModule,
+    MenuModule
   ],
   providers: [ComputadoresService],
   bootstrap: [AppComponent]
