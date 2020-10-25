@@ -1,6 +1,6 @@
 <div class="po-wrapper">
-    <po-toolbar p-title="Empire Services"></po-toolbar>
-    <po-menu [p-menus]="menus"></po-menu>
+    <po-toolbar p-title="Empire Services" [p-notification-actions]="notificationActions" [p-profile]="profile" ></po-toolbar>
+    <po-menu [p-menus]="menus" p-title="Empire"></po-menu>
     <router-outlet></router-outlet>
 </div>
 

@@ -4,6 +4,7 @@ import { ComputadoresListComponent } from './computadores-list/computadores-list
 import { PoTableModule,PoModule } from '@po-ui/ng-components';
 import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
     PoTableModule,
     PoPageDynamicSearchModule,
     HttpClientModule,
-    PoModule
+    PoModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     ComputadoresListComponent

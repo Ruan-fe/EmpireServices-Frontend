@@ -13,4 +13,7 @@ export class ComputadoresService {
   listarTodos():Observable<Computadores[]>{
       return this.http.get<Computadores[]>('http://localhost:8080/computadores');
   }
+  salvar(computadores: Computadores):Observable<Computadores>{
+    return this.http.post<Computadores>('http://localhost:8080/computadores',computadores);
+  }
 }

@@ -5,6 +5,8 @@ import { LaboratoriosRoutingModule } from './laboratorios-routing.module';
 import { LaboratoriosListComponent } from './laboratorios-list/laboratorios-list.component';
 import { PoModule } from '@po-ui/ng-components';
 import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
     CommonModule,
     LaboratoriosRoutingModule,
     PoModule,
-    PoPageDynamicSearchModule
+    PoPageDynamicSearchModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   exports: [
     LaboratoriosListComponent

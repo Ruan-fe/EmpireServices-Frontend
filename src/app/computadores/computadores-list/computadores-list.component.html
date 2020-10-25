@@ -9,27 +9,28 @@
 </po-page-dynamic-search>
 
 <po-modal #modalSalvarComputador p-title="Novo Computador" [p-primary-action]="salvarCadastro" [p-secondary-action]="cancelarCadastro">
-  <form>
+  <form [formGroup]="form">
     <div class="po-row">
-      <po-input class="po-md-6" formControlName="codigo" p-label="Código" p-disabled> </po-input>
       <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+      <po-select class="po-md-6"  p-label="Laboratório" [p-options]="tiposLaboratorios"> </po-select>
     </div>
+   
   </form>
 </po-modal>
 
 <po-modal #modalEdicaoComputador p-title="Editar Computador" [p-primary-action]="editarCadastroComputador" [p-secondary-action]="cancelarCadastroComputador">
-  <form>
+  <form [formGroup]="form">
     <div class="po-row">
-      <po-input class="po-md-6" formControlName="codigo" p-label="Código" p-disabled> </po-input>
-      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+      <po-input class="po-md-2" formControlName="id" p-label="Código" p-disabled> </po-input>
+      <po-input class="po-md-5" formControlName="descricao" p-label="Descrição"> </po-input>
+      <po-select class="po-md-5" p-label="Laboratório"> </po-select>
     </div>
   </form>
 </po-modal>
 
 <po-modal #modalExcluirComputador p-title="Excluir Computador" [p-primary-action]="excluirCadastroComputador" [p-secondary-action]="cancelarExclusaoComputador">
-  <form>
+  <form [formGroup] = "form">
     <div class="po-row">
-      
     </div>
   </form>
 </po-modal>

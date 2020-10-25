@@ -1,6 +1,9 @@
+import { NgForOf } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup} from '@angular/forms';
-import { PoBreadcrumb, PoTableColumn, PoModalAction, PoModalComponent} from '@po-ui/ng-components';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { PoBreadcrumb, PoTableColumn, PoModalAction, PoModalComponent, PoNotificationService, PoTableColumnLabel, PoRadioGroupOption, PoSelectOption} from '@po-ui/ng-components';
+import { Laboratorios } from 'src/app/laboratorios/Laboratorios';
+import { LaboratoriosService } from 'src/app/laboratorios/laboratorios.service';
 import { Computadores } from '../Computadores';
 import {ComputadoresService} from '../computadores.service';
 
@@ -12,6 +15,18 @@ import {ComputadoresService} from '../computadores.service';
 export class ComputadoresListComponent implements OnInit {
   form: FormGroup;
   computador: Computadores;
+  laboratorio: Laboratorios;
+  laboratorios: Laboratorios[] = [];
+
+  tiposLaboratorios = [
+    {
+      label: this.laboratorios.forEach(element => {
+        'asdasd'
+      }),
+      value: `laboratorios.id`
+    }
+  ]
+  
   public readonly columns: Array<PoTableColumn> = [
     {
       property: 'id',
@@ -23,6 +38,12 @@ export class ComputadoresListComponent implements OnInit {
       label: 'Descrição',
       type: 'string'
     },
+    {
+      property: 'descLaboratorio',
+      label: 'Laboratório',
+      type: 'string',
+      
+  },
   ];
 
   items: Array<any> = [];
@@ -97,10 +118,31 @@ export class ComputadoresListComponent implements OnInit {
       {label: 'Computadores', link: '/computadores'},]
   }
 
-  constructor(private service: ComputadoresService) { }
+  constructor(private service: ComputadoresService, private formBuilder: FormBuilder, private poNotification: PoNotificationService,
+              private laboratorioService: LaboratoriosService) {
+    this.computador = new Computadores();
+   }
 
   ngOnInit(): void {
-    this.service.listarTodos().subscribe(res =>{this.items = res})
+    this.iniciarForm();
+    this.listarComputadores();
+    this.listarLaboratorios();
+  }
+
+  iniciarForm(): void{
+    this.form = this.formBuilder.group({
+      id : [''],
+      descricao : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
+    })
+  }
+
+  listarComputadores(): void{
+    
+    this.service.listarTodos().subscribe(res =>{this.items = res});
+  }
+
+  listarLaboratorios(): void{
+    this.laboratorioService.listarTodos().subscribe(res=>{this.laboratorios = res})
   }
 
   novoComputador(){
@@ -116,8 +158,21 @@ export class ComputadoresListComponent implements OnInit {
   }
 
   salvarComputador(){
+    this.computador = this.form.value;
+    this.service.salvar(this.computador).toPromise().then(
+      res => {
+        this.computador = res;
+        this.poNotification.success('Computador salvo com sucesso!');
+      },
+      error =>{
+        this.poNotification.error('Não foi possível salvar o novo computador');
+      }
+    )
+    this.modalSalvarComputador.close();
+    this.ngOnInit();
     
   }
+    
   editarComputador(){
     
   }
