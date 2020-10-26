@@ -41,7 +41,7 @@ export class AppComponent {
   private navegarLaboratorios(){
     this.router.navigateByUrl('/laboratorios')
   }
-  
+
 }
 
 
