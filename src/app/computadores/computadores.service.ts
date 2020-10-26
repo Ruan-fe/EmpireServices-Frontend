@@ -16,4 +16,8 @@ export class ComputadoresService {
   salvar(computadores: Computadores):Observable<Computadores>{
     return this.http.post<Computadores>('http://localhost:8080/computadores',computadores);
   }
+  deletar(idComputador: number): Observable<any>{
+    return this.http.delete<any>(`http://localhost:8080/computadores/${idComputador}`);
+  }
+
 }

@@ -128,6 +128,7 @@ export class LaboratoriosListComponent implements OnInit {
     )
     this.modalSalvarLaboratorio.close();
     this.ngOnInit();
+    this.listarLaboratorios();
   }
 
   novoLaboratorio(){
@@ -150,6 +151,7 @@ export class LaboratoriosListComponent implements OnInit {
     )
       this.modalExcluirLaboratorio.close();
       this.ngOnInit();
+      this.listarLaboratorios();
 
   }
 
@@ -163,7 +165,7 @@ export class LaboratoriosListComponent implements OnInit {
     this.laboratorios = this.form.value
     this.service.salvar(this.laboratorios).subscribe(
       res => {
-        this.poNotification.success('Laboratório Editado com Sucesso!');
+        this.poNotification.success('Laboratório editado com Sucesso!');
         this.modalEditarLaboratorio.close();
       },
       error =>{
@@ -171,6 +173,7 @@ export class LaboratoriosListComponent implements OnInit {
       }
     )  
     this.ngOnInit()
+    this.listarLaboratorios();
   }
 
   limparForm(): void{

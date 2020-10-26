@@ -18,14 +18,6 @@ export class ComputadoresListComponent implements OnInit {
   laboratorio: Laboratorios;
   laboratorios: Laboratorios[] = [];
 
-  tiposLaboratorios = [
-    {
-      label: this.laboratorios.forEach(element => {
-        'asdasd'
-      }),
-      value: `laboratorios.id`
-    }
-  ]
   
   public readonly columns: Array<PoTableColumn> = [
     {
@@ -77,7 +69,7 @@ export class ComputadoresListComponent implements OnInit {
 
   cancelarCadastroComputador: PoModalAction = {
     action: () => {
-      this.modalEdicaoComputador.close();
+      this.perguntaCancelarEdicao();
     },
     label: 'Cancelar',
     danger: true
@@ -92,7 +84,7 @@ export class ComputadoresListComponent implements OnInit {
 
   excluirCadastroComputador: PoModalAction = {
     action: () => {
-      this.perguntaExcluirComputador();
+      this.excluirComputador();
     },
     label: 'Confirmar'
   };
@@ -133,6 +125,7 @@ export class ComputadoresListComponent implements OnInit {
     this.form = this.formBuilder.group({
       id : [''],
       descricao : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
+      idLaboratorio: ['']
     })
   }
 
@@ -148,13 +141,31 @@ export class ComputadoresListComponent implements OnInit {
   novoComputador(){
       this.modalSalvarComputador.open();
   }
-  perguntaEditarComputador(){
-    this.modalEdicaoComputador.open();
-  
-  }
-  perguntaExcluirComputador(){
+  perguntaExcluirComputador(com: Computadores){
+    this.computador = com;
     this.modalExcluirComputador.open();
   
+  }
+  excluirComputador(){
+    this.service.deletar(this.computador.id).subscribe(
+      res=>{
+        this.poNotification.success("Computador excluído com sucesso!")
+      },
+      error=>{
+        this.poNotification.error("Não foi possível excluir o computador!")
+      }
+    )
+    this.modalExcluirComputador.close();
+    this.ngOnInit();
+    this.listarComputadores();
+  }
+  cancelarExcluirComputador(){
+    this.modalExcluirComputador.close();
+  }
+  perguntaCancelarEdicao(){
+    this.modalEdicaoComputador.close();
+    this.ngOnInit();
+    
   }
 
   salvarComputador(){
@@ -170,14 +181,40 @@ export class ComputadoresListComponent implements OnInit {
     )
     this.modalSalvarComputador.close();
     this.ngOnInit();
+    this.listarComputadores();
     
+  }
+
+  perguntaEditarComputador(com: Computadores){
+    this.computador = com;
+    this.form.get('id').setValue(this.computador.id);
+    this.form.get('descricao').setValue(this.computador.descricao);
+    this.form.get('idLaboratorio').setValue(this.computador.idLaboratorio);
+    this.modalEdicaoComputador.open();
   }
     
   editarComputador(){
-    
+    this.computador = this.form.value;
+    this.service.salvar(this.computador).toPromise().then(
+      res => {
+        this.computador = res;
+        this.poNotification.success('Computador editado com sucesso!');
+      },
+      error =>{
+        this.poNotification.error('Não foi possível editar computador');
+      }
+    )
+    this.modalEdicaoComputador.close();
+    this.ngOnInit();
+    this.listarComputadores();
   }
-  cancelarExcluirComputador(){
-    this.modalExcluirComputador.close();
+
+  limparForm(): void{
+    this.form.get('computador.id').setValue(null);
+    this.form.get('computador.descricao').setValue(null);
+    this.form.get('computador.idLaboratorio').setValue('');
   }
+
+
 
 }

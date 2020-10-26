@@ -12,18 +12,27 @@
   <form [formGroup]="form">
     <div class="po-row">
       <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
-      <po-select class="po-md-6"  p-label="Laboratório" [p-options]="tiposLaboratorios"> </po-select>
+      <select formControlName="idLaboratorio">
+        <option value="">Selecione um laboratório...</option>
+        <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
+          {{lab.descricao}}
+      </option>
+      </select>
     </div>
-   
   </form>
 </po-modal>
 
 <po-modal #modalEdicaoComputador p-title="Editar Computador" [p-primary-action]="editarCadastroComputador" [p-secondary-action]="cancelarCadastroComputador">
   <form [formGroup]="form">
     <div class="po-row">
-      <po-input class="po-md-2" formControlName="id" p-label="Código" p-disabled> </po-input>
-      <po-input class="po-md-5" formControlName="descricao" p-label="Descrição"> </po-input>
-      <po-select class="po-md-5" p-label="Laboratório"> </po-select>
+      <po-input class="po-md-1" formControlName="id" p-label="ID" p-disabled> </po-input>
+      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+      <select formControlName="idLaboratorio">
+        <option value="">Selecione um laboratório...</option>
+        <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
+          {{lab.descricao}}
+      </option>
+      </select>
     </div>
   </form>
 </po-modal>
@@ -31,6 +40,7 @@
 <po-modal #modalExcluirComputador p-title="Excluir Computador" [p-primary-action]="excluirCadastroComputador" [p-secondary-action]="cancelarExclusaoComputador">
   <form [formGroup] = "form">
     <div class="po-row">
+      <h1>Deseja excluir o computador {{computador.id}}?</h1>
     </div>
   </form>
 </po-modal>
