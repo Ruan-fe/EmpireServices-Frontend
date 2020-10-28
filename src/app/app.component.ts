@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private router: Router) { }
   readonly menus: Array<PoMenuItem> = [
     { label: 'Home', action: this.onClick.bind(this), icon: 'po-icon-home'  },
-    { label: 'Serviços', action: this.onClick.bind(this), icon: 'po-icon-document-filled'  },
+    { label: 'Serviços', action: this.navegarServicos.bind(this), icon: 'po-icon-document-filled'  },
     { label: 'Computadores', action: this.navegarComputadores.bind(this), icon: 'po-icon-device-desktop'  },
     { label: 'Laboratórios', action: this.navegarLaboratorios.bind(this), icon: 'po-icon-layers' },
     { label: 'Usuários', action: this.onClick.bind(this), icon: 'po-icon-users' }
@@ -35,6 +35,9 @@ export class AppComponent {
   private onClick() {
     alert('Clicked in menu item')
   }
+  private navegarServicos(){
+    this.router.navigateByUrl('/servicos')
+}
   private navegarComputadores(){
       this.router.navigateByUrl('/computadores')
   }

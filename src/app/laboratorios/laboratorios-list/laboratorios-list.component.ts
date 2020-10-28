@@ -19,7 +19,7 @@ export class LaboratoriosListComponent implements OnInit {
 
   readonly breadcrump: PoBreadcrumb = {
     items:[
-      {label: 'Home', link:'/laboratorios'},
+      {label: 'Home', link:'/'},
       {label: 'Laboratorios', link: '/laboratorios'},]
   }
 
@@ -37,6 +37,9 @@ export class LaboratoriosListComponent implements OnInit {
   ];
 
   items: Array<any> = [];
+
+
+
   actionsTable = [
     {
       action: this.perguntaEditarLaboratorio.bind(this),
@@ -106,12 +109,13 @@ export class LaboratoriosListComponent implements OnInit {
   iniciarForm(): void{
     this.form = this.formBuilder.group({
       id : [''],
-      descricao : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
+      descricao : ['',Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)]),],
     })
   }
 
   listarLaboratorios(){
-    this.service.listarTodos().subscribe(res =>{this.items = res});
+    this.service.listarTodos().subscribe(res =>{
+      this.items = res});
   }
 
   salvarLaboratorio(){

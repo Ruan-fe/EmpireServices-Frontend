@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { PoBreadcrumb, PoTableColumn, PoModalAction, PoModalComponent, PoNotificationService, PoTableColumnLabel, PoRadioGroupOption, PoSelectOption} from '@po-ui/ng-components';
@@ -106,7 +105,7 @@ export class ComputadoresListComponent implements OnInit {
 
   readonly breadcrump: PoBreadcrumb = {
     items:[
-      {label: 'Home', link:'/laboratorios'},
+      {label: 'Home', link:'/'},
       {label: 'Computadores', link: '/computadores'},]
   }
 
