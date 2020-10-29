@@ -9,6 +9,7 @@ import { ComputadoresModule } from './computadores/computadores.module';
 import {ComputadoresService} from './computadores/computadores.service'
 import {LaboratoriosModule } from './laboratorios/laboratorios.module';
 import { ServicosModule } from './servicos/servicos.module';
+import {UsuariosModule} from './usuarios/usuarios.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ServicosModule } from './servicos/servicos.module';
     RouterModule.forRoot([]),
     ComputadoresModule,
     LaboratoriosModule,
-    ServicosModule
+    ServicosModule,
+    UsuariosModule
 
   ],
   providers: [ComputadoresService],

@@ -16,7 +16,7 @@ export class AppComponent {
     { label: 'Serviços', action: this.navegarServicos.bind(this), icon: 'po-icon-document-filled'  },
     { label: 'Computadores', action: this.navegarComputadores.bind(this), icon: 'po-icon-device-desktop'  },
     { label: 'Laboratórios', action: this.navegarLaboratorios.bind(this), icon: 'po-icon-layers' },
-    { label: 'Usuários', action: this.onClick.bind(this), icon: 'po-icon-users' }
+    { label: 'Usuários', action: this.navegarUsuarios.bind(this), icon: 'po-icon-users' }
   ];
   notificationActions: Array<PoToolbarAction> = [
     {
@@ -37,14 +37,16 @@ export class AppComponent {
   }
   private navegarServicos(){
     this.router.navigateByUrl('/servicos')
-}
+  }
   private navegarComputadores(){
       this.router.navigateByUrl('/computadores')
   }
   private navegarLaboratorios(){
     this.router.navigateByUrl('/laboratorios')
   }
-
+  private navegarUsuarios(){
+    this.router.navigateByUrl('/usuarios')
+  }
 }
 
 
