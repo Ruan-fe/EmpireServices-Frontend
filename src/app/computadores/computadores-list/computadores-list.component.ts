@@ -149,14 +149,14 @@ export class ComputadoresListComponent implements OnInit {
     this.service.deletar(this.computador.id).subscribe(
       res=>{
         this.poNotification.success("Computador excluído com sucesso!")
+        this.listarComputadores();
       },
       error=>{
         this.poNotification.error("Não foi possível excluir o computador!")
       }
     )
     this.modalExcluirComputador.close();
-    this.ngOnInit();
-    this.listarComputadores();
+    
   }
   cancelarExcluirComputador(){
     this.modalExcluirComputador.close();
@@ -168,19 +168,20 @@ export class ComputadoresListComponent implements OnInit {
   }
 
   salvarComputador(){
+    this.form.reset
     this.computador = this.form.value;
     this.service.salvar(this.computador).toPromise().then(
       res => {
         this.computador = res;
         this.poNotification.success('Computador salvo com sucesso!');
+        this.listarComputadores();
       },
       error =>{
         this.poNotification.error('Não foi possível salvar o novo computador');
       }
     )
     this.modalSalvarComputador.close();
-    this.ngOnInit();
-    this.listarComputadores();
+    
     
   }
 
@@ -198,14 +199,13 @@ export class ComputadoresListComponent implements OnInit {
       res => {
         this.computador = res;
         this.poNotification.success('Computador editado com sucesso!');
+        this.listarComputadores();
       },
       error =>{
         this.poNotification.error('Não foi possível editar computador');
       }
     )
     this.modalEdicaoComputador.close();
-    this.ngOnInit();
-    this.listarComputadores();
   }
 
   limparForm(): void{

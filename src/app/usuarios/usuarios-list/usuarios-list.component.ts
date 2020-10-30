@@ -48,6 +48,7 @@ export class UsuariosListComponent implements OnInit {
     this.usuariosService.salvarUsuario(this.usuario).subscribe(
       res=>{
         this.usuario=res;
+        this.listarTodos();
         this.poNotification.success('Usuário cadastrado com sucesso!')
       },
       error=>{
@@ -55,7 +56,6 @@ export class UsuariosListComponent implements OnInit {
       }
     )
     this.modalSalvarUsuario.close();
-    this.listarTodos();
   }
 
   perguntaEditarUsuario(usuarios: Usuarios){
@@ -77,19 +77,20 @@ export class UsuariosListComponent implements OnInit {
     this.usuariosService.salvarUsuario(this.usuario).subscribe(
       res =>{
         this.poNotification.success('Usuário editado com sucesso!')
+        this.listarTodos();
       },
       error =>{
         this.poNotification.success('Não foi possível editar o usuário!')
       }
     )
     this.modalEditarUsuario.close();
-    this.listarTodos();
   }
 
   confirmaExcluirUsuario(){
     this.usuariosService.excluir(this.usuario.id).subscribe(
       res => {
         this.poNotification.success('Usuário excluído com sucesso!')
+        this.listarTodos();
       },
       error =>{
         this.poNotification.success('Não foi possível excluir o usuário!')

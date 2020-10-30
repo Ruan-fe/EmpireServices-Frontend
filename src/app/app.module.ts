@@ -10,10 +10,12 @@ import {ComputadoresService} from './computadores/computadores.service'
 import {LaboratoriosModule } from './laboratorios/laboratorios.module';
 import { ServicosModule } from './servicos/servicos.module';
 import {UsuariosModule} from './usuarios/usuarios.module';
-
+import {LoginModule } from './login/login.module';
+import { LayoutComponent } from './layout/layout.component'
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,8 @@ import {UsuariosModule} from './usuarios/usuarios.module';
     ComputadoresModule,
     LaboratoriosModule,
     ServicosModule,
-    UsuariosModule
+    UsuariosModule,
+    LoginModule
 
   ],
   providers: [ComputadoresService],

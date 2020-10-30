@@ -119,20 +119,20 @@ export class LaboratoriosListComponent implements OnInit {
   }
 
   salvarLaboratorio(){
+    this.form.reset
     let laboratorio = new Laboratorios();
     laboratorio = this.form.value;
     this.service.salvar(laboratorio).subscribe(
       res=>{
         laboratorio = res;
         this.poNotification.success('Laboratório salvo com sucesso!');
+        this.listarLaboratorios();
       },
       error=>{
         this.poNotification.error('Não foi possível salvar o novo laboratório');
       }
     )
     this.modalSalvarLaboratorio.close();
-    this.ngOnInit();
-    this.listarLaboratorios();
   }
 
   novoLaboratorio(){
@@ -148,14 +148,13 @@ export class LaboratoriosListComponent implements OnInit {
     this.service.excluir(this.laboratorios.id).subscribe(
       res =>{
           this.poNotification.success('Laboratório excluído com sucesso!')
+          this.listarLaboratorios();
       },
       error =>{
         this.poNotification.error('Não foi possível excluir o laboratório')
       }
     )
       this.modalExcluirLaboratorio.close();
-      this.ngOnInit();
-      this.listarLaboratorios();
 
   }
 
@@ -170,14 +169,14 @@ export class LaboratoriosListComponent implements OnInit {
     this.service.salvar(this.laboratorios).subscribe(
       res => {
         this.poNotification.success('Laboratório editado com Sucesso!');
-        this.modalEditarLaboratorio.close();
+        this.listarLaboratorios();
+        
       },
       error =>{
         this.poNotification.error('Não foi possível editar o Laboratório!');
       }
     )  
-    this.ngOnInit()
-    this.listarLaboratorios();
+    this.modalEditarLaboratorio.close();
   }
 
   limparForm(): void{

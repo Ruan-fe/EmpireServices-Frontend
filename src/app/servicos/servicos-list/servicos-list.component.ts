@@ -70,6 +70,7 @@ export class ServicosListComponent implements OnInit {
     this.form.get('idLaboratorio').setValue(this.servico.idLaboratorio);
     this.form.get('idComputador').setValue(this.servico.idComputador);
     this.form.get('dataAbertura').setValue(this.servico.dataAbertura);
+    this.form.get('descricao').setValue(this.servico.descricao);
     this.form.get('status').setValue(this.servico.status);
     this.modalAlterarStatus.open()
   }
@@ -81,19 +82,24 @@ export class ServicosListComponent implements OnInit {
       this.form.get('status').setValue('C')
     }
     else{
-      this.form.get('status').setValue('P')
+      this.modalAlterarStatus.close();
+      return this.poNotification.error('Não é possível alterar um serviço já concluído!')
+      //this.form.get('status').setValue('P')
     }
     
     this.servico = this.form.value
     this.service.salvarServico(this.servico).subscribe(
       res =>{
         this.poNotification.success('Status alterado com sucesso!')
+        this.listarTodos();
+        
       },
       error =>{
         this.poNotification.error('Não foi possível alterar o status!')
       }
     )
     this.modalAlterarStatus.close();
+    
 
   }
 
@@ -196,14 +202,17 @@ export class ServicosListComponent implements OnInit {
     this.modalDetalhesServico.open();
   }
   salvarServico(){
+    this.form.reset
     this.servico = this.form.value
     this.service.salvarServico(this.servico).subscribe(
       res =>{
         this.poNotification.success('Serviço aberto com sucesso!');
+        this.listarTodos();
+        this.iniciarForm();
       }
     )
     this.service.listarComFiltroStatusP('');
- 
+    
   }
 
   
