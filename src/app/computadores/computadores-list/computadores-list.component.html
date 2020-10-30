@@ -12,7 +12,7 @@
   <form [formGroup]="form">
     <div class="po-row">
       <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
-      <select formControlName="idLaboratorio">
+      <select formControlName="idLaboratorio" class="form-control">
         <option value="">Selecione um laboratório...</option>
         <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
           {{lab.descricao}}
@@ -27,7 +27,7 @@
     <div class="po-row">
       <po-input class="po-md-1" formControlName="id" p-label="ID" p-disabled> </po-input>
       <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
-      <select formControlName="idLaboratorio">
+      <select formControlName="idLaboratorio" class="form-control">
         <option value="">Selecione um laboratório...</option>
         <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
           {{lab.descricao}}
