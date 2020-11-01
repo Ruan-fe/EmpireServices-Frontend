@@ -32,14 +32,14 @@ export class UsuariosListComponent implements OnInit {
   iniciarForm(): void{
     this.form = this.formBuilder.group({
       id : [''],
-      nome : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
       email: [''],
+      nome : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
       senha: ['']
     })
   }
 
   novoUsuario(){
-    this.form.reset();
+    
     this.modalSalvarUsuario.open();
   }
 
@@ -80,7 +80,7 @@ export class UsuariosListComponent implements OnInit {
         this.listarTodos();
       },
       error =>{
-        this.poNotification.success('Não foi possível editar o usuário!')
+        this.poNotification.error('Não foi possível editar o usuário!')
       }
     )
     this.modalEditarUsuario.close();
@@ -93,7 +93,8 @@ export class UsuariosListComponent implements OnInit {
         this.listarTodos();
       },
       error =>{
-        this.poNotification.success('Não foi possível excluir o usuário!')
+        this.poNotification.error('Não foi possível excluir o usuário!')
+        console.log(error)
       }
     )
     this.modalExcluirUsuario.close();

@@ -4,6 +4,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { PoModule } from '@po-ui/ng-components';
 import { PoPageLoginModule } from '@po-ui/ng-templates';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,9 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PoModule,
+    RouterModule.forRoot([]),
     PoPageLoginModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  exports:[
+    LoginFormComponent
   ]
 })
 export class LoginModule { }

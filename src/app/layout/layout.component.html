@@ -1,1 +1,6 @@
-<p>layout works!</p>
+<div class="po-wrapper">
+    <po-toolbar p-title="Empire Services" [p-notification-actions]="notificationActions" [p-profile]="profile" [p-profile-actions]="profileActions"></po-toolbar>
+    <po-menu [p-menus]="menus" p-title="Empire" p-filter></po-menu>
+    <router-outlet></router-outlet>
+</div>
+

@@ -12,6 +12,9 @@ import { ServicosModule } from './servicos/servicos.module';
 import {UsuariosModule} from './usuarios/usuarios.module';
 import {LoginModule } from './login/login.module';
 import { LayoutComponent } from './layout/layout.component'
+import { UsuariosService } from './usuarios/usuarios.service';
+import {TokenInterceptor } from './token.interceptor'
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,14 @@ import { LayoutComponent } from './layout/layout.component'
     LoginModule
 
   ],
-  providers: [ComputadoresService],
+  providers: [
+    ComputadoresService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

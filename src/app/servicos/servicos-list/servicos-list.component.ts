@@ -6,6 +6,7 @@ import { Computadores } from 'src/app/computadores/Computadores';
 import { ComputadoresService } from 'src/app/computadores/computadores.service';
 import { Laboratorios } from 'src/app/laboratorios/Laboratorios';
 import { LaboratoriosService } from 'src/app/laboratorios/laboratorios.service';
+import { UsuariosService } from 'src/app/usuarios/usuarios.service';
 import { Servicos } from '../Servicos';
 import {ServicosService } from '../servicos.service';
 
@@ -22,7 +23,7 @@ export class ServicosListComponent implements OnInit {
   itemSelect: any;
   idLaboratorio: any;
   constructor(private formBuilder: FormBuilder, private service: ServicosService, private computadorService: ComputadoresService, 
-    private laboratorioService: LaboratoriosService , private poNotification: PoNotificationService) { 
+    private laboratorioService: LaboratoriosService , private poNotification: PoNotificationService, private usuarioService: UsuariosService) { 
     this.servico = new Servicos();
 
   }
@@ -84,7 +85,6 @@ export class ServicosListComponent implements OnInit {
     else{
       this.modalAlterarStatus.close();
       return this.poNotification.error('Não é possível alterar um serviço já concluído!')
-      //this.form.get('status').setValue('P')
     }
     
     this.servico = this.form.value
@@ -96,13 +96,14 @@ export class ServicosListComponent implements OnInit {
       },
       error =>{
         this.poNotification.error('Não foi possível alterar o status!')
+
       }
     )
     this.modalAlterarStatus.close();
     
+    
 
   }
-
   iniciarForm(): void{
     this.form = this.formBuilder.group({
       id : [''],
@@ -138,7 +139,7 @@ export class ServicosListComponent implements OnInit {
       type: 'string'
     },
     {
-      property: 'nomeUsuario',
+      property: 'emailUsuario',
       label: 'Usuário',
       type: 'string'
     },

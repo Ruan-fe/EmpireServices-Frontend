@@ -12,19 +12,19 @@ export class ServicosService {
   constructor(private http: HttpClient) { }
 
   listarTodos():Observable<Servicos[]>{
-    return this.http.get<Servicos[]>(environment.API_URL+'servicos');
+    return this.http.get<Servicos[]>(environment.API_URL+'/servicos');
 }
 listarComFiltroStatusP(status: string):Observable<Servicos[]>{
-  return this.http.get<Servicos[]>(environment.API_URL+`servicos?status=${status}`)
+  return this.http.get<Servicos[]>(environment.API_URL+`/servicos?status=${status}`)
 }
 listarComFiltroStatusC(status: string):Observable<Servicos[]>{
-  return this.http.get<Servicos[]>(environment.API_URL+`servicos?status=${status}`)
+  return this.http.get<Servicos[]>(environment.API_URL+`/servicos?status=${status}`)
 }
 listarComputadoresFiltroPorIdLab(idLaboratorio: string):Observable<Servicos[]>{
-  return this.http.get<Servicos[]>(environment.API_URL+`servicos?status=${status}`)
+  return this.http.get<Servicos[]>(environment.API_URL+`/servicos?status=${status}`)
 }
 
 salvarServico(servico: Servicos):Observable<Servicos>{
-  return this.http.post<Servicos>(environment.API_URL+'servicos',servico)
+  return this.http.post<Servicos>(environment.API_URL+'/servicos',servico)
 }
 }
