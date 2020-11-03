@@ -8,6 +8,7 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ServicosListComponent } from './servicos/servicos-list/servicos-list.component';
 import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
 import { AuthGuard } from './auth.guard';
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   
 
@@ -17,7 +18,8 @@ const routes: Routes = [
     {path:'laboratorios',component:LaboratoriosListComponent},
     {path:'servicos',component:ServicosListComponent},
     {path:'usuarios',component:UsuariosListComponent},
-    {path: '', redirectTo:'/computadores', pathMatch: 'full'}
+    {path:'home',component:HomeComponent},
+    {path: '', redirectTo:'/home', pathMatch: 'full'}
   ]}
 ];
 

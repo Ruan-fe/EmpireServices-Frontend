@@ -12,6 +12,7 @@ export class UsuariosListComponent implements OnInit {
 
   form:FormGroup
   usuario:Usuarios;
+  usuarios:Usuarios[]
   constructor(private usuariosService:UsuariosService, private formBuilder:FormBuilder, private poNotification: PoNotificationService) { 
     this.usuario = new Usuarios();
 
@@ -38,24 +39,21 @@ export class UsuariosListComponent implements OnInit {
     })
   }
 
+
+
   novoUsuario(){
-    
     this.modalSalvarUsuario.open();
   }
 
   salvarUsuario(){
     this.usuario = this.form.value
     this.usuariosService.salvarUsuario(this.usuario).subscribe(
-      res=>{
-        this.usuario=res;
+      res => {
+        this.modalSalvarUsuario.close();
         this.listarTodos();
         this.poNotification.success('Usuário cadastrado com sucesso!')
-      },
-      error=>{
-        this.poNotification.error('Não foi possível cadastrar o usuário!')
       }
     )
-    this.modalSalvarUsuario.close();
   }
 
   perguntaEditarUsuario(usuarios: Usuarios){
@@ -101,8 +99,8 @@ export class UsuariosListComponent implements OnInit {
   }
 
   listarTodos(){
-    this.usuariosService.listarTodos().subscribe(lista=>{
-      this.items = lista;
+    this.usuariosService.listarTodos().subscribe(res=>{
+      this.items = res;
     });
   }
   
@@ -125,6 +123,7 @@ export class UsuariosListComponent implements OnInit {
   ];
 
   items: Array<any> = [];
+  testeUser: Array<any> = [];
 
 
 

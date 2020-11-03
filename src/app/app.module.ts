@@ -15,10 +15,14 @@ import { LayoutComponent } from './layout/layout.component'
 import { UsuariosService } from './usuarios/usuarios.service';
 import {TokenInterceptor } from './token.interceptor'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { PoPageDynamicSearchComponent, PoPageDynamicSearchModule } from '@po-ui/ng-templates';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     LaboratoriosModule,
     ServicosModule,
     UsuariosModule,
-    LoginModule
+    LoginModule,
+    FormsModule,
+    PoPageDynamicSearchModule
 
   ],
   providers: [

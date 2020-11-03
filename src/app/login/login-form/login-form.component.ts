@@ -36,7 +36,7 @@ export class LoginFormComponent implements OnInit{
       res=>{
         const access_token = JSON.stringify(res);
         localStorage.setItem('access_token',access_token)
-        this.router.navigateByUrl('/computadores')
+        this.router.navigateByUrl('/home')
       },
       error=>{
         this.poDialog.alert({

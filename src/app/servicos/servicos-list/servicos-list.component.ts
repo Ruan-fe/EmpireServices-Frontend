@@ -6,7 +6,9 @@ import { Computadores } from 'src/app/computadores/Computadores';
 import { ComputadoresService } from 'src/app/computadores/computadores.service';
 import { Laboratorios } from 'src/app/laboratorios/Laboratorios';
 import { LaboratoriosService } from 'src/app/laboratorios/laboratorios.service';
+import { Usuarios } from 'src/app/usuarios/Usuarios';
 import { UsuariosService } from 'src/app/usuarios/usuarios.service';
+import { ServicoConcluido } from '../ServicoConcluido';
 import { Servicos } from '../Servicos';
 import {ServicosService } from '../servicos.service';
 
@@ -18,13 +20,16 @@ import {ServicosService } from '../servicos.service';
 export class ServicosListComponent implements OnInit {
   form: FormGroup;
   servico: Servicos;
+  servicoConcluido: ServicoConcluido;
   laboratorios: Laboratorios[] = [];
   computadores: Computadores[] = [];
+  usuario: Usuarios
   itemSelect: any;
   idLaboratorio: any;
   constructor(private formBuilder: FormBuilder, private service: ServicosService, private computadorService: ComputadoresService, 
     private laboratorioService: LaboratoriosService , private poNotification: PoNotificationService, private usuarioService: UsuariosService) { 
     this.servico = new Servicos();
+    this.servicoConcluido = new ServicoConcluido();
 
   }
 
@@ -33,6 +38,7 @@ export class ServicosListComponent implements OnInit {
     this.listarTodos();
     this.listarLaboratorios();
     this.listarComputadores();
+    this.filtrarUsuarioPorEmail();
   }
 
   
@@ -45,6 +51,8 @@ export class ServicosListComponent implements OnInit {
   @ViewChild('modalFiltro', { static: true }) modalFiltro: PoModalComponent;
   @ViewChild('modalSalvarServico', { static: true }) modalSalvarServico: PoModalComponent;
   @ViewChild('modalAlterarStatus', { static: true }) modalAlterarStatus: PoModalComponent;
+  @ViewChild('modalObservacaoStatus', { static: true }) modalObservacaoStatus: PoModalComponent;
+  
 
   cancelarAtualizarStatus: PoModalAction = {
     action: () => {
@@ -60,12 +68,29 @@ export class ServicosListComponent implements OnInit {
     },
     label: 'Confirmar'
   };
+  cancelarObservacaoStatus: PoModalAction = {
+    action: () => {
+      this.modalObservacaoStatus.close();
+    },
+    label: 'Cancelar',
+    danger: true
+  };
+
+  abreObservacaoStatus: PoModalAction = {
+    action: () => {
+      this.observacaoStatus();
+    },
+    label: 'Confirmar'
+  };
+
+
 
   perguntaFiltroStatus(){
     this.modalFiltro.open()
   }
-  perguntaAlterarStatus(serv: Servicos){
+  perguntaAlterarStatus(serv: Servicos, servConcluido){
     this.servico = serv;
+    this.servicoConcluido = servConcluido;
     this.form.get('id').setValue(this.servico.id);
     this.form.get('idUsuario').setValue(this.servico.idUsuario);
     this.form.get('idLaboratorio').setValue(this.servico.idLaboratorio);
@@ -74,16 +99,22 @@ export class ServicosListComponent implements OnInit {
     this.form.get('descricao').setValue(this.servico.descricao);
     this.form.get('status').setValue(this.servico.status);
     this.modalAlterarStatus.open()
+    
+  }
+  observacaoStatus(){
+    this.modalAlterarStatus.close();
+    this.modalObservacaoStatus.open();
   }
 
   atualizarStatus(){
+
     let status = this.form.get('status').value
     
     if(status == 'P'){
       this.form.get('status').setValue('C')
     }
     else{
-      this.modalAlterarStatus.close();
+      this.modalObservacaoStatus.close();
       return this.poNotification.error('Não é possível alterar um serviço já concluído!')
     }
     
@@ -92,17 +123,25 @@ export class ServicosListComponent implements OnInit {
       res =>{
         this.poNotification.success('Status alterado com sucesso!')
         this.listarTodos();
-        
       },
       error =>{
         this.poNotification.error('Não foi possível alterar o status!')
 
       }
     )
-    this.modalAlterarStatus.close();
-    
-    
+  
+    this.modalObservacaoStatus.close();
+  }
+  
+  filtrarUsuarioPorEmail(){
 
+    this.usuarioService.getUsuarioByEmail().subscribe(
+      res=>{
+        this.usuario = res
+        this.form.get('idUsuario').setValue(this.usuario.id);
+      }     
+    )
+    
   }
   iniciarForm(): void{
     this.form = this.formBuilder.group({
@@ -111,8 +150,9 @@ export class ServicosListComponent implements OnInit {
       idLaboratorio: [''],
       dataAbertura: [''],
       idComputador: [''],
-      idUsuario: [1],
-      status: ['P']
+      idUsuario: [''],
+      status: ['P'],
+      observacao: ['']
     })
   }
 
@@ -139,7 +179,7 @@ export class ServicosListComponent implements OnInit {
       type: 'string'
     },
     {
-      property: 'emailUsuario',
+      property: 'nomeUsuario',
       label: 'Usuário',
       type: 'string'
     },
@@ -189,10 +229,8 @@ export class ServicosListComponent implements OnInit {
     this.computadorService.listarComputadoresFiltroPorIdLab(idLaboratorio).subscribe(
       res=>{
         this.computadores = res;
-        console.log(res)
             }
     )
-    console.log(this.form.get('idLaboratorio').value)
   }
   
   listarLaboratorios(){
@@ -203,7 +241,6 @@ export class ServicosListComponent implements OnInit {
     this.modalDetalhesServico.open();
   }
   salvarServico(){
-    this.form.reset
     this.servico = this.form.value
     this.service.salvarServico(this.servico).subscribe(
       res =>{

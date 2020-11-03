@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { PoMenuItem, PoToolbarAction, PoToolbarProfile } from '@po-ui/ng-components';
+import { Usuarios } from '../usuarios/Usuarios';
 import { UsuariosService } from '../usuarios/usuarios.service';
 
 @Component({
@@ -9,15 +10,15 @@ import { UsuariosService } from '../usuarios/usuarios.service';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
+  idUsuario: any = '';
   usuarioAutenticado: string = '';
-  teste: string = 'olá mundo'
+  usuario: Usuarios;
   constructor(private router: Router, private usuarioService: UsuariosService) { }
   ngOnInit(){
    
   }
   readonly menus: Array<PoMenuItem> = [
-    { label: 'Home', action: this.onClick.bind(this), icon: 'po-icon-home'  },
+    { label: 'Home', action: this.navegarHome.bind(this), icon: 'po-icon-home'  },
     { label: 'Serviços', action: this.navegarServicos.bind(this), icon: 'po-icon-document-filled'  },
     { label: 'Computadores', action: this.navegarComputadores.bind(this), icon: 'po-icon-device-desktop'  },
     { label: 'Laboratórios', action: this.navegarLaboratorios.bind(this), icon: 'po-icon-layers' },
@@ -43,9 +44,9 @@ export class LayoutComponent implements OnInit {
     this.usuarioService.deslogar();
     this.router.navigateByUrl('/login')
   }
-  private onClick() {
-    alert('Clicked in menu item')
-  }
+  private navegarHome() {
+    this.router.navigateByUrl('/home')
+    }
   private navegarServicos(){
     this.router.navigateByUrl('/servicos')
   }

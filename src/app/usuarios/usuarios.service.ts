@@ -44,7 +44,11 @@ export class UsuariosService {
   }
 
   excluir(id: number): Observable<any>{
-    return this.http.delete<any>(environment.API_URL+`usuarios/${id}`)
+    return this.http.delete<any>(environment.API_URL+`/usuarios/${id}`)
+  }
+  
+  getUsuarioByEmail() :Observable<Usuarios>{
+    return this.http.get<Usuarios>(environment.API_URL+`/usuarios?email=`+this.getUsuarioAutenticado());
   }
 
   deslogar(){
@@ -59,6 +63,7 @@ export class UsuariosService {
     }
     return null;
   }
+
 
   tentarLogar(username: string, password: string) : Observable<any>{
     const params = new HttpParams()
