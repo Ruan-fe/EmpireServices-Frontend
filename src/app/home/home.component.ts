@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { PoPieChartSeries } from '@po-ui/ng-components';
+import { PoDonutChartSeries, PoPieChartSeries } from '@po-ui/ng-components';
 import { ServicosService } from '../servicos/servicos.service';
-import { first, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -11,6 +10,9 @@ import { from } from 'rxjs';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   constructor(private servicosService: ServicosService) { }
+  
+  pseries: Array<PoPieChartSeries | PoDonutChartSeries>;
+
   ngAfterViewInit(): void {
   
   }
@@ -31,19 +33,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
    this.servicosService.recuperarCountServicosPorStatus("P").subscribe(
      res =>{
       this.statusP = res;
-      this.pseries.push(
-        {category: 'Serviços Pendentes', value: res}
-      )
-     }
-   )
+     })
   }
   recuperaCountStatusC(){
     this.servicosService.recuperarCountServicosPorStatus("C").subscribe(
       res =>{
         this.statusC = res;
-        this.pseries.push(
-          {category: 'Serviços Concluidos', value: res}
-        )
+        this.pseries = [{category: "Serviços Concluídos", value: res}, 
+        {category: "Serviços Pendentes", value: this.statusP}]
 
       }
       )
@@ -51,8 +48,5 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
   
 
-  pseries: Array<any> = [
-
-  ]
 
 }
