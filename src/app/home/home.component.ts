@@ -21,13 +21,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.recuperaCountStatusP();
     this.recuperaCountStatusC();
+  }
 
-  console.log(this.pseries)
-  }
-  teste(){
-    this.recuperaCountStatusP();
-    this.recuperaCountStatusC();
-  }
 
   recuperaCountStatusP(){
    this.servicosService.recuperarCountServicosPorStatus("P").subscribe(

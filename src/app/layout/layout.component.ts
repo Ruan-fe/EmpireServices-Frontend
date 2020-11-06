@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { PoMenuItem, PoToolbarAction, PoToolbarProfile } from '@po-ui/ng-components';
+import { PoMenuItem, PoModalComponent, PoToolbarAction, PoToolbarProfile } from '@po-ui/ng-components';
 import { Usuarios } from '../usuarios/Usuarios';
 import { UsuariosService } from '../usuarios/usuarios.service';
 
@@ -13,7 +13,12 @@ export class LayoutComponent implements OnInit {
   idUsuario: any = '';
   usuarioAutenticado: string = '';
   usuario: Usuarios;
+  avatar = 'http://lorempixel.com/300/300/cats/';
   constructor(private router: Router, private usuarioService: UsuariosService) { }
+
+  
+  @ViewChild( 'modalProfile', { static: true }) modalProfile: PoModalComponent;
+
   ngOnInit(){
    
   }
@@ -32,17 +37,21 @@ export class LayoutComponent implements OnInit {
     }
   ]
   profile: PoToolbarProfile = {
-    avatar: 'https://via.placeholder.com/48x48?text=AVATAR',
+    avatar: 'http://lorempixel.com/144/144/cats',
     subtitle: 'Seja bem vindo ao sistema!',
     title: this.usuarioService.getUsuarioAutenticado()
   }
   profileActions: Array<PoToolbarAction> = [
+    { icon: 'po-icon-user', label: 'Perfil', type: 'primary', separator: true, action: item => this.modalPerfil(item) },
     { icon: 'po-icon-exit', label: 'Exit', type: 'danger', separator: true, action: item => this.deslogar(item) }
   ];
 
   private deslogar($event){
     this.usuarioService.deslogar();
     this.router.navigateByUrl('/login')
+  }
+  private modalPerfil($event){
+    this.modalProfile.open()
   }
   private navegarHome() {
     this.router.navigateByUrl('/home')

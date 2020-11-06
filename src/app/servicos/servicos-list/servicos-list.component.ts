@@ -176,7 +176,7 @@ export class ServicosListComponent implements OnInit {
     {
       property: 'dataAbertura',
       label: 'Data de Abertura',
-      type: 'string'
+      type: 'date'
     },
     {
       property: 'nomeUsuario',
